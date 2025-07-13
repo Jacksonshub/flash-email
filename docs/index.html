@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coinbase Flash Email</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fa;
+      padding: 20px;
+    }
+    h1 {
+      color: #1652f0;
+      text-align: center;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background-color: #1652f0;
+      color: white;
+      font-weight: bold;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Coinbase Tab</h1>
+  <form id="emailForm">
+    <input type="email" placeholder="Recipient Email" name="to" required />
+    <input type="email" placeholder="Your Email" name="from" required />
+    <input type="text" placeholder="Sender Wallet Address" name="senderWallet" required />
+    <input type="text" placeholder="Receiver Wallet Address" name="receiverWallet" required />
+    <select name="coin" required>
+      <option value="">Select Coin</option>
+      <option value="BTC">Bitcoin (BTC)</option>
+      <option value="ETH">Ethereum (ETH)</option>
+      <option value="USDT">Tether (USDT)</option>
+    </select>
+    <input type="number" placeholder="Amount" name="amount" required />
+    <input type="number" placeholder="Amount in USD" name="usdValue" required />
+    <button type="submit">Send Email</button>
+  </form>
+
+  <script>
+    document.getElementById("emailForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      try {
+        const res = await fetch("https://flashemail-backend.replit.app/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        const result = await res.text();
+        alert(result || "Email Sent!");
+      } catch (err) {
+        alert("Failed to send. Please try again later.");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
