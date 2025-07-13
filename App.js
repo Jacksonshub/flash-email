@@ -1,0 +1,1 @@
+import React from 'react'; import CoinbaseForm from './components/CoinbaseForm'; export default function App() { return <CoinbaseForm />; }
