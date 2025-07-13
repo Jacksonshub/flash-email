@@ -1,1 +1,0 @@
-import React from 'react'; export default function CoinbaseForm() { return <form><h1>Coinbase Tab</h1></form>; }
